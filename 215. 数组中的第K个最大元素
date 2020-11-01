@@ -1,0 +1,54 @@
+```python
+# sort() sort in place
+# O(nlogn) time
+# O(1) because sort list in place
+# class Solution:
+#     def findKthLargest(self, nums: List[int], k: int) -> int:
+#         nums.sort()
+#         return nums[-k]
+
+import random
+
+class Solution:
+    def findKthLargest(self, nums: List[int], k: int) -> int:
+        tar_i = len(nums) - k
+        right = len(nums) - 1
+        left = 0
+
+        while 1:
+            index = self.partition(nums, left, right)
+            if index == tar_i:
+                return nums[index]
+            elif index < tar_i:
+                left = index + 1
+            else:
+                right = index - 1
+
+    def swap(self, nums, a, b):
+        temp = nums[a]
+        nums[a] = nums[b]
+        nums[b] = temp
+
+    # O(n) time
+    # O(1) space
+    # https://www.geeksforgeeks.org/quick-sort/
+    # improve time efficiency by introducing random pivot
+    def partition(self, nums, left, right):
+        # random pivot
+        pivot_i = random.randint(left, right)
+        self.swap(nums, pivot_i, right)
+        
+        pivot = nums[right]
+        i = left - 1
+        j = left
+        while j < right:
+            if nums[j] < pivot:
+                i += 1
+                self.swap(nums, i, j)
+                j += 1
+            else:
+                j += 1
+        self.swap(nums, i + 1, right)
+
+        return i + 1
+```
