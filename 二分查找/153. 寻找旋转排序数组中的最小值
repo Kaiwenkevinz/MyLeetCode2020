@@ -1,0 +1,21 @@
+### 二分查找
+
+```py
+class Solution:
+    def findMin(self, nums: List[int]) -> int:
+
+        # if nums[m] > nums[h], then there is a target point between 0 ... m
+        # if nums[m] < nums[h], then there is a taget point at m + 1 ... end
+
+        l = 0
+        h = len(nums) - 1
+
+        while l < h:
+            m = l + (h - l) // 2
+            if nums[m] > nums[h]:
+                l = m + 1
+            else:
+                h = m
+        
+        return nums[l]
+``` 
