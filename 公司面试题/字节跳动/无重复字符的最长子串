@@ -1,0 +1,21 @@
+### 滑动窗口
+```java
+class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        // abcdec, 第一次从a开始，第二次从c开始
+        int left = 0;   // 滑动窗口左边界
+        int res = 0;
+        Map<Character, Integer> map = new HashMap<>(); // 存储字符串下标
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            // 更新left位置
+            if (map.containsKey(c)) {
+                left = Math.max(left, map.get(c) + 1);  // 取最大值，因为left可能会跳回之前的值, left 只能往右移
+            }
+            map.put(c, i);
+            res = Math.max(res, i - left + 1);
+        }
+        return res;
+    }
+}
+```
